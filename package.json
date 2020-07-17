@@ -1,0 +1,60 @@
+{
+  "name": "voteban-io",
+  "version": "0.1.0",
+  "description": "Voteban for nodecg-io",
+  "homepage": "https://github.com/noeppi-noeppi/voteban-io",
+  "author": {
+    "name": "noeppi_noeppi",
+    "url": "https://github.com/noeppi-noeppi"
+  },
+  "keywords": [
+    "",
+    "nodecg-bundle"
+  ],
+  "nodecg": {
+    "compatibleRange": "^1.1.1",
+    "dashboardPanels": [
+      {
+        "name": "voteban",
+        "title": "Voteban",
+        "file": "voteban.html",
+        "fullbleed": true,
+        "headerColor": "#525F78"
+      }
+    ],
+    "bundleDependencies": {
+      "nodecg-io-core": "0.1.0",
+      "nodecg-io-twitch": "0.1.0",
+      "nodecg-io-discord": "0.1.0",
+      "nodecg-io-ws-server": "0.1.0"
+    }
+  },
+  "scripts": {
+    "bootstrap": "lerna bootstrap",
+    "build": "lerna run --parallel dobuild",
+    "watch": "lerna run --parallel dowatch",
+    "lint": "eslint . --ext ts",
+    "format": "prettier --write \"./**/*.{ts,html,css}\"",
+    "dobuild": "tsc",
+    "dowatch": "tsc -w"
+  },
+  "repository": "https://github.com/noeppi-noeppi/voteban-io.git",
+  "license": "EPL-2.0",
+  "dependencies": {
+    "nodecg-io-twitch": "https://raw.githubusercontent.com/noeppi-noeppi/nodecg-io-tarballs/master/nodecg-io-twitch.tar.gz",
+    "nodecg-io-discord": "https://raw.githubusercontent.com/noeppi-noeppi/nodecg-io-tarballs/master/nodecg-io-discord.tar.gz",
+    "nodecg-io-ws-server": "https://raw.githubusercontent.com/noeppi-noeppi/nodecg-io-tarballs/master/nodecg-io-ws-server.tar.gz",
+    "@types/node": "^13.13.5",
+    "nodecg": "^1.6.1",
+    "typescript": "^3.9.5"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^3.3.0",
+    "@typescript-eslint/parser": "^3.3.0",
+    "eslint": "^7.3.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "lerna": "^3.22.1",
+    "prettier": "^2.0.5"
+  }
+}

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Voteban-View</title>
+    <meta charset="utf-8">
+    <style>
+        .gone {
+            display: none;
+        }
+        .x {
+            font-size: large;
+        }
+    </style>
+    <script>
+        function connect() {
+            const address = document.getElementById('address-input').value
+            const ws = new WebSocket(address)
+            document.getElementById('address-input-span').classList.add('gone')
+            ws.onmessage = function(msg) {
+                const json = JSON.parse(msg.data)
+                const ban = document.createElement('div')
+                if (json.reason.text != null) {
+                    ban.innerHTML = `
+                    <span style='font-size: large;''>${json.source.name} banned ${json.target.name}</span><br>
+                    <span>Origin: ${json.origin}, Reason: ${json.reason.text}<br>
+                    <span>${json.source.name} has banned ${json.target.name} ${json.amount} times.<br><br>
+                    `
+                } else {
+                    ban.innerHTML = `
+                    <span style='font-size: large;''>${json.source.name} banned ${json.target.name}</span><br>
+                    <span>Origin: ${json.origin}, Reason:<br>
+                    <img src="${json.reason.imageURL}"><br>
+                    <span>${json.source.name} has banned ${json.target.name} ${json.amount} times.<br><br>
+                    `
+                }
+                document.getElementById('bans').appendChild(ban)
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <h1>Voteban-View</h1>
+    <span id="address-input-span">Enter Address: <input id="address-input" type="text"><input
+            type="button" value="OK" onclick="connect();"></span>
+    <div id="bans">
+
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,15 @@
+{
+  "name": "voteban-io-dashboard",
+  "version": "0.1.0",
+  "description": "Dashboard for voteban",
+  "scripts": {
+    "dobuild": "tsc",
+    "dowatch": "tsc -w"
+  },
+  "dependencies": {
+    "nodecg": "^1.6.1",
+    "voteban-io": "0.1.0",
+    "typescript": "^3.9.3"
+  },
+  "license": "EPL-2.0"
+}

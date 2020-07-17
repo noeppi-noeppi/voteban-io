@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<style>
+		.monospace {
+			font-family: monospace;
+		}
+
+		.green {
+			color: green
+		}
+
+		.red {
+			color: red
+		}
+	</style>
+	<script src="voteban.js"></script>
+</head>
+
+<body>
+	<div>
+		<div style="display: inline-block; width: 100%; height: 5em;">
+			<img src="voteban.png" style="height: 5em; vertical-align: baseline; float: left;">
+			<h1 style="height: 5em ;vertical-align: baseline; padding-left: 0.2em; float: left;">Voteban.io</h1>
+		</div>
+		<h3 style="margin: 0;">A <a style="color:white" href="https://nodecg.io/" target="_blank">nodecg-io</a>
+			implementation of <a style="color:white" href="https://git.io/voteban" target="_blank">Voteban</a></h3>
+	</div>
+
+	<div style="margin-top: 3em;">
+		<span id="voteban-hint" style="font-weight: bold;" class="red"></span><br>
+		<span>Settings:</span>
+		<table cols="4" rows="3" style="border: 0; ">
+			<tr>
+				<td><img src="https://discord.com/assets/07dca80a102d4149e9736d4b162cff6f.ico" style="height: 1.5em">
+				</td>
+				<td style="padding-right: 0.5em;">Discord</td>
+				<td>Channel:</td>
+				<td><input id="voteban-discord-channel" type="text" placeholder="WUMPUS" onchange="unsavedChanges();">
+				</td>
+				<td><span id="voteban-discord-status"></span></td>
+			</tr>
+			<tr>
+				<td><img src="https://static.twitchcdn.net/assets/favicon-16-2d5d1f5ddd489ee10398.png"
+						style="height: 1.5em"></td>
+				<td style="padding-right: 0.5em;">Twitch</td>
+				<td>Channel:</td>
+				<td><input id="voteban-twitch-channel" type="text" placeholder="#skate702" onchange="unsavedChanges();">
+				</td>
+				<td><span id="voteban-twitch-status"></span></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td style="padding-right: 0.5em;" colspan="3">WebSocket Server</td>
+				<td><span id="voteban-ws-status"></span></td>
+			</tr>
+			<tr>
+				<td colspan="4"><input type="button" value="Save" onclick="saveGUI();"></td>
+			</tr>
+		</table>
+	</div>
+
+	<div style="margin-top: 3em;">
+		<div style="width: 49.5%; float: left;">
+			<span>Text ban reasons:</span>
+			<textarea id="text-ban-reasons" style="width: 100%; height: 20em; resize: none;"
+				onchange="unsavedChanges();"></textarea>
+		</div>
+		<div style="width: 49.5%; float: right;">
+			<span>Image ban reasons: (Only on discord, enter URLs)</span>
+			<textarea id="image-ban-reasons" style="width: 100%; height: 20em; resize: none;"
+				onchange="unsavedChanges();"></textarea>
+		</div>
+	</div>
+
+	<div style="margin-top: 3em;">
+		<input type="button" value="Export Configuration" onclick="exportConfig();">
+		<input type="button" value="Import Configuration" onclick="document.getElementById('voteban-file-input').click();">
+		<input id="voteban-file-input" type="file" name="Select file for import" style="display: none;" onchange="importConfig();">
+	</div>
+</body>
+
+</html>

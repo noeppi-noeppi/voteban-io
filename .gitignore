@@ -1,0 +1,11 @@
+# node dependencies
+node_modules/
+
+# compiled js files
+*.js
+
+# Lerna temporary files
+package.json.lerna_backup
+
+!.eslintrc.js
+!.prettierrc.js
