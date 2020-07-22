@@ -41,9 +41,9 @@
   "repository": "https://github.com/noeppi-noeppi/voteban-io.git",
   "license": "EPL-2.0",
   "dependencies": {
-    "nodecg-io-twitch": "https://raw.githubusercontent.com/noeppi-noeppi/nodecg-io-tarballs/master/nodecg-io-twitch.tar.gz",
-    "nodecg-io-discord": "https://raw.githubusercontent.com/noeppi-noeppi/nodecg-io-tarballs/master/nodecg-io-discord.tar.gz",
-    "nodecg-io-ws-server": "https://raw.githubusercontent.com/noeppi-noeppi/nodecg-io-tarballs/master/nodecg-io-ws-server.tar.gz",
+    "nodecg-io-twitch": "https://raw.githubusercontent.com/noeppi-noeppi/nodecg-io-tarballs/900cd08fe1b7c66e7ba36a32729c9b1033c7db96/nodecg-io-twitch.tar.gz",
+    "nodecg-io-discord": "https://raw.githubusercontent.com/noeppi-noeppi/nodecg-io-tarballs/900cd08fe1b7c66e7ba36a32729c9b1033c7db96/nodecg-io-discord.tar.gz",
+    "nodecg-io-ws-server": "https://raw.githubusercontent.com/noeppi-noeppi/nodecg-io-tarballs/900cd08fe1b7c66e7ba36a32729c9b1033c7db96/nodecg-io-ws-server.tar.gz",
     "@types/node": "^13.13.5",
     "nodecg": "^1.6.1",
     "typescript": "^3.9.5"
