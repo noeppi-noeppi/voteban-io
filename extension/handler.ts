@@ -1,7 +1,7 @@
 import * as voteban from './index'
 
 import { Message, MessageEmbed, GuildMember, EmbedFieldData } from "discord.js"
-import TwitchPrivateMessage from "twitch-chat-client/lib/StandardCommands/TwitchPrivateMessage";
+import { TwitchPrivateMessage } from "twitch-chat-client/lib/StandardCommands/TwitchPrivateMessage";
 import { VotebanWsReason } from './types';
 
 export function handleDiscord(msg: Message): void {
@@ -103,6 +103,8 @@ export function handleDiscord(msg: Message): void {
                 var reason = randomReason(true, source, target)
             }
 
+            incrementBan("discord", sourceId, targetId)
+
             let desc = ''
             desc += `**${source} banned ${target}**  ${dn(getBans("discord", sourceId, targetId))} times\n`
             desc += `**${source} has banned others**  ${dn(getBans("discord", sourceId, null))} times\n`
@@ -112,7 +114,6 @@ export function handleDiscord(msg: Message): void {
                 desc += `\n${reason.text}`
             }
 
-            incrementBan("discord", sourceId, targetId)
             sendEmbed(`${source} banned ${target}`, desc, reason.imageURL)
             voteban.notifyBan({
                 origin: "discord",

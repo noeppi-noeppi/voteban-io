@@ -26,7 +26,7 @@
       "nodecg-io-core": "0.1.0",
       "nodecg-io-twitch": "0.1.0",
       "nodecg-io-discord": "0.1.0",
-      "nodecg-io-ws-server": "0.1.0"
+      "nodecg-io-websocket-server": "0.1.0"
     }
   },
   "scripts": {
@@ -41,12 +41,16 @@
   "repository": "https://github.com/noeppi-noeppi/voteban-io.git",
   "license": "EPL-2.0",
   "dependencies": {
-    "nodecg-io-twitch": "https://raw.githubusercontent.com/noeppi-noeppi/nodecg-io-tarballs/900cd08fe1b7c66e7ba36a32729c9b1033c7db96/nodecg-io-twitch.tar.gz",
-    "nodecg-io-discord": "https://raw.githubusercontent.com/noeppi-noeppi/nodecg-io-tarballs/900cd08fe1b7c66e7ba36a32729c9b1033c7db96/nodecg-io-discord.tar.gz",
-    "nodecg-io-ws-server": "https://raw.githubusercontent.com/noeppi-noeppi/nodecg-io-tarballs/900cd08fe1b7c66e7ba36a32729c9b1033c7db96/nodecg-io-ws-server.tar.gz",
+    "nodecg-io-core": "https://raw.githubusercontent.com/noeppi-noeppi/nodecg-io-tarballs/9a12cd7a59bc4dcf439322beb4afa781db37defb/nodecg-io-core.tar.gz",
+    "nodecg-io-dashboard": "https://raw.githubusercontent.com/noeppi-noeppi/nodecg-io-tarballs/9a12cd7a59bc4dcf439322beb4afa781db37defb/nodecg-io-dashboard.tar.gz",
+    "nodecg-io-twitch": "https://raw.githubusercontent.com/noeppi-noeppi/nodecg-io-tarballs/9a12cd7a59bc4dcf439322beb4afa781db37defb/nodecg-io-twitch.tar.gz",
+    "nodecg-io-discord": "https://raw.githubusercontent.com/noeppi-noeppi/nodecg-io-tarballs/9a12cd7a59bc4dcf439322beb4afa781db37defb/nodecg-io-discord.tar.gz",
+    "nodecg-io-websocket-server": "https://raw.githubusercontent.com/noeppi-noeppi/nodecg-io-tarballs/9a12cd7a59bc4dcf439322beb4afa781db37defb/nodecg-io-websocket-server.tar.gz",
     "@types/node": "^13.13.5",
+    "@types/crypto-js": "3.1.39",
     "nodecg": "^1.6.1",
-    "typescript": "^3.9.5"
+    "typescript": "^3.9.5",
+    "dot-prop": ">=5.1.1"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^3.3.0",

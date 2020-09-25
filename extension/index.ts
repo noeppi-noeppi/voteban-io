@@ -3,10 +3,10 @@ import { VotebanSettings, VotebanBans, VotebanRuntime, VotebanWsMessage } from "
 import * as config from "./configImpl"
 import * as handler from "./handler"
 
-import { ServiceProvider } from "nodecg-io-core/extension/types";
+import { requireService } from "nodecg-io-core/extension/serviceClientWrapper";
 import { TwitchServiceClient } from "nodecg-io-twitch/extension";
 import { DiscordServiceClient } from "nodecg-io-discord/extension";
-import { WSServerServiceClient } from "nodecg-io-ws-server/extension";
+import { WSServerServiceClient } from "nodecg-io-websocket-server/extension";
 
 import { TextChannel } from "discord.js"
 import ChatClient from "twitch-chat-client";
@@ -64,26 +64,23 @@ module.exports = function (nodecg: NodeCG): void {
         updateTwitch()
     })
 
-    const discord = (nodecg.extensions["nodecg-io-discord"] as unknown) as
-        | ServiceProvider<DiscordServiceClient>
-        | undefined;
+    const discord = requireService<DiscordServiceClient>(nodecg, "discord")
 
-    discord?.requireService(
-        "voteban-io",
-        (client) => {
-            discordClient = client
-            updateDiscord()
-        }, () => {
-            discordClient = null
-            updateDiscord()
-        }
-    );
+    discord?.onAvailable((client) => {
+        discordClient = client
+        updateDiscord()
+    })
+        
+    discord?.onUnavailable(() => {
+        discordClient = null
+        updateDiscord()
+    })
 
     function updateDiscord(): void {
         if (discordClient != null) {
             const channel = votebanSettings.value.discordChannel
             if (channel != null && channel != '') {
-                discordClient.getRawClient().channels.fetch(channel).then((dc) => {
+                discordClient.getNativeClient().channels.fetch(channel).then((dc) => {
                     if (dc.type != 'text') {
                         discordChannel = null
                         votebanRuntime.value.discordAvailable = true
@@ -96,8 +93,8 @@ module.exports = function (nodecg: NodeCG): void {
                         votebanRuntime.value.discordVoice = false
                         currentDiscordHandlerId += 1 // Invalidate all old handlers.
                         const currentHandlerId = currentDiscordHandlerId
-                        const userId = discordClient?.getRawClient().user?.id // Don't react to our own messages
-                        discordClient?.getRawClient().on('message', (msg) => {
+                        const userId = discordClient?.getNativeClient().user?.id // Don't react to our own messages
+                        discordClient?.getNativeClient().on('message', (msg) => {
                             if (currentDiscordHandlerId == currentHandlerId && discordChannel != null
                                 && msg.channel.id == discordChannel.id && msg.author.id != userId) {
                                 handler.handleDiscord(msg)
@@ -124,33 +121,30 @@ module.exports = function (nodecg: NodeCG): void {
         }
     }
 
-    const twitch = (nodecg.extensions["nodecg-io-twitch"] as unknown) as
-        | ServiceProvider<TwitchServiceClient>
-        | undefined;
+    const twitch = requireService<TwitchServiceClient>(nodecg, "twitch")
 
-    twitch?.requireService(
-        "voteban-io",
-        (client) => {
-            twitchClient = client
-            updateTwitch()
-        }, () => {
-            twitchClient = null
-            updateTwitch()
-        }
-    );
+    twitch?.onAvailable((client) => {
+        twitchClient = client
+        updateTwitch()
+    })
+
+    twitch?.onUnavailable(() => {
+        twitchClient = null
+        updateTwitch()
+    })
 
     function updateTwitch(): void {
         if (twitchClient != null) {
             const channel = votebanSettings.value.twitchChannel
             if (channel != null && channel != '') {
                 const client = twitchClient
-                client.getRawClient().join(channel).then(() => {
-                    twitchChannel = [client.getRawClient(), channel]
+                client.getNativeClient().join(channel).then(() => {
+                    twitchChannel = [client.getNativeClient(), channel]
                     votebanRuntime.value.twitchAvailable = true
                     votebanRuntime.value.twitchValid = true
                     currentTwitchHandlerId += 1 // Invalidate all old handlers.
                     const currentHandlerId = currentTwitchHandlerId
-                    client.getRawClient().onPrivmsg((chan, user, messageText, message) => {
+                    client.getNativeClient().onPrivmsg((chan, user, messageText, message) => {
                         if (currentTwitchHandlerId == currentHandlerId && twitchChannel != null
                             && chan.toLowerCase() == twitchChannel[1].toLowerCase()) {
                             handler.handleTwitch(user, messageText, message)
@@ -173,20 +167,17 @@ module.exports = function (nodecg: NodeCG): void {
         }
     }
 
-    const webSocketServer = (nodecg.extensions["nodecg-io-ws-server"] as unknown) as
-        | ServiceProvider<WSServerServiceClient>
-        | undefined;
+    const webSocketServer = requireService<WSServerServiceClient>(nodecg, "websocket-server")
 
-    webSocketServer?.requireService(
-        "voteban-io",
-        (client) => {
-            wsServer = client.getRawClient()
-            votebanRuntime.value.wsAvailable = true
-        }, () => {
-            wsServer = null
-            votebanRuntime.value.wsAvailable = false
-        }
-    );
+    webSocketServer?.onAvailable((client) => {
+        wsServer = client.getNativeClient()
+        votebanRuntime.value.wsAvailable = true
+    })
+        
+    webSocketServer?.onUnavailable(() => {
+        wsServer = null
+        votebanRuntime.value.wsAvailable = false
+    })
 }
 
 export function notifyBan(ban: VotebanWsMessage): void {

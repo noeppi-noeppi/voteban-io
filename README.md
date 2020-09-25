@@ -23,7 +23,7 @@ Sireisenblut is existing - /voteban Sireisenblut!
 
 ## How to use
 
-Voteban-io is a [nodecg](https://nodecg.com) module. You nned a working nodecg installation with [nodecg-io](https://nodecg.io) installed.
+Voteban-io is a [nodecg](https://nodecg.com) module. You need a working nodecg installation with [nodecg-io](https://nodecg.io) installed.
 
 Head over to the [releases](https://github.com/noeppi-noeppi/voteban-io/releases) section and download the latest release. Hint: the `shaded` files contain all dependencies of voteban-io. If you use this, you don't need to build it afterwards.
 
@@ -41,7 +41,7 @@ Now start nodecg. You'll see a new tab:
 
 Here you can adjust the settings of voteban-io. To make it work put in a discord channel, a twitch channel or both. Then assign it the required instances in the nodecg-io tab.
 
-The WebSocket-Server may be used to add a listener to a ban. It'll send a message to every connected client whenever a bon occurs. The message looks like this:
+The WebSocket-Server may be used to add a listener to a ban. It'll send a message to every connected client whenever a ban occurs. The message looks like this:
 
 ```json
 {
